@@ -6,7 +6,7 @@ fn main() {
     v1.push(3);
     
     let mut v2 = Vec::new(); //Domyślny typ zmiennych w vec to i32
-    v2.extend(&v1); // Po prostu wpidać exted i dać argument (pożyczamy wektor)
+    v2.extend(&v1); // Dać extend bo to dokłada do wektora ( nasz jest pusty) to skopiuje
 
     assert_eq!(v1, v2);
 
