@@ -1,23 +1,33 @@
-
 // FIX the errors
 fn main() {
-    let mut v = vec![1, 2, 3];
+    let mut vec = Vec::with_capacity(10);
 
-    let slice1 = &v[..];
-    // Out of bounds will cause a panic
-    // You must use `v.len` here
-    let slice2 = &v[0..v.len()];
-    
-    assert_eq!(slice1, slice2);
-    
-    // Slices are read only
-    // Note: slice and &Vec are different
-    let vec_ref: &mut Vec<i32> = &mut v;
-    (*vec_ref).push(4);
-    let slice3 = &v[0..v.len()];
-    
+    // The vector contains no items, even though it has capacity for more
+    assert_eq!(vec.len(), 0);
+    assert_eq!(vec.capacity(), 10);
 
-    assert_eq!(slice3, &[1, 2, 3, 4]);
+    // These are all done without reallocating...
+    for i in 0..10 {
+        vec.push(i);
+    }
+    assert_eq!(vec.len(), 10);
+    assert_eq!(vec.capacity(), 10);
 
+    // ...but this may make the vector reallocate
+    vec.push(11);
+    println!("Ile wynosi CAPACITY BUAGAM {}",vec.capacity());
+    assert_eq!(vec.len(), 11);
+    assert!(vec.capacity() >= 11); // Jak poza capaicity jeden element to zwiększa się dwukrotnie defultowe CAPACITY
+
+
+    // Fill in an appropriate value to make the `for` done without reallocating 
+    let mut vec = Vec::with_capacity(100);
+    for i in 0..100 {
+        vec.push(i);
+    }
+
+    assert_eq!(vec.len(), 100);
+    assert_eq!(vec.capacity(), 100);
+    
     println!("Success!");
 }
